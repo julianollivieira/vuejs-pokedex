@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Pokédex</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- development version, REPLACE WITH PRODUCTION VERSION WHEN DONE -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <p id="title">Pokédex entry #{{ pokemon.id }}</p>
+
+        <!-- Pokedex -->
+        <div class="pokedex">
+          <div class="head">
+            <pkmn-img v-bind:src="pokemon.sprites.front_default"></pkmn-img>
+            <div class="header">
+              <p>{{ pokemon.name }}</p>
+            </div>
+          </div>
+          <div class="body">
+            <input type="number" id="pokemon_id" value="1" min="1" max="807" v-model="pokemon_id" @change="getPokemon(pokemon_id)">
+            <div class="grid">
+              <div class="grid-item"><p class="name">Height</p><p class="value">{{ pokemon.height }} m</p></div>
+              <div class="grid-item"><p class="name">Weight</p><p class="value">{{ pokemon.weight }} kg</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js" charset="utf-8"></script>
+  </body>
+</html>
