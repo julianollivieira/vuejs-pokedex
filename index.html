@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
   </head>
   <body>
+    <div class="bg-image"></div>
     <div id="app">
       <div id="pokemon_list">
         <div class="head">
@@ -19,49 +20,90 @@
         </div>
         <div class="body_content">
           <ul>
-            <li v-for="(item, index) in all_pokemon" v-on:click="getPokemon(item.name)"><img v-bind:src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + (index + 1) + '.png'">{{ index + 1 }} {{ item.name }}</li>
+            <li v-for="(item, index) in all_pokemon" v-on:click="getPokemon(index)">
+              <img v-bind:src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + (index + 1) + '.png'">#{{ item.id }} {{ item.name }}
+            </li>
           </ul>
         </div>
       </div>
-
       <div id="pokedex">
         <div class="head">
-          <pkmn-img v-bind:src="pokemon.sprites.front_default"></pkmn-img>
+          <div id="pokemon_image_background">
+            <img id="pokemon_image" v-bind:src="pokemon.sprite"></img>
+          </div>
           <div class="head_content">
-            <p>Pokédex entry #{{ pokemon.id }}</p>
+            <p>Pokédex</p>
           </div>
         </div>
         <div class="body">
           <div class="grid">
             <div class="">
-              <p>{{ pokemon.name }}</p>
+              <p>{{ pokemon.ucfirst_name }}</p>
+            </div>
+            <div class="">
+              <p>#{{ pokemon.id_padded }}</p>
+            </div>
+            <div class="grid-item">
+              <p class="name">Primary type</p>
+              <p id="primary_type" v-if="pokemon.primary_type" class="value">{{ pokemon.primary_type }}</p>
+            </div>
+            <div class="grid-item">
+              <p class="name">Secondary type</p>
+              <p id="secondary_type" v-if="pokemon.secondary_type" class="value">{{ pokemon.secondary_type }}</p>
+              <p id="secondary_type" v-else class="value">none</p>
             </div>
             <div class="grid-item"><p class="name">Height</p><p class="value">{{ pokemon.height }} m</p></div>
             <div class="grid-item"><p class="name">Weight</p><p class="value">{{ pokemon.weight }} kg</p></div>
+            <div class="grid-item"><p class="name">Habitat</p><p class="value">{{ pokemon.habitat }}</p></div>
+            <div class="grid-item"><p class="name">Shape</p><p class="value">{{ pokemon.shape }}</p></div>
           </div>
         </div>
       </div>
-
-
-      <!-- <div class="container">
-        <p id="title">Pokédex entry #{{ pokemon.id }}</p>
-
-        <div class="pokedex">
-          <div class="head">
-            <pkmn-img v-bind:src="pokemon.sprites.front_default"></pkmn-img>
-            <div class="header">
-              <p>{{ pokemon.name }}</p>
+      <div id="stats">
+        <div class="head">
+          <div class="head_content">
+            <p>Pokémon stats</p>
+          </div>
+        </div>
+        <div class="body">
+          <div class="stat hp">
+            <p class="name">{{ pokemon.stats[0].stat.name }}</p>
+            <div class="bar_container">
+              <div class="bar">{{ pokemon.stats[0].base_stat }}</div>
             </div>
           </div>
-          <div class="body">
-            <input type="number" id="pokemon_id" value="1" min="1" max="807" v-model="pokemon_id" @change="getPokemon(pokemon_id)">
-            <div class="grid">
-              <div class="grid-item"><p class="name">Height</p><p class="value">{{ pokemon.height }} m</p></div>
-              <div class="grid-item"><p class="name">Weight</p><p class="value">{{ pokemon.weight }} kg</p></div>
+          <div class="stat attack">
+            <p class="name">{{ pokemon.stats[1].stat.name }}</p>
+            <div class="bar_container">
+              <div class="bar">{{ pokemon.stats[1].base_stat }}</div>
+            </div>
+          </div>
+          <div class="stat defense">
+            <p class="name">{{ pokemon.stats[2].stat.name }}</p>
+            <div class="bar_container">
+              <div class="bar">{{ pokemon.stats[2].base_stat }}</div>
+            </div>
+          </div>
+          <div class="stat special-attack">
+            <p class="name">{{ pokemon.stats[3].stat.name }}</p>
+            <div class="bar_container">
+              <div class="bar">{{ pokemon.stats[3].base_stat }}</div>
+            </div>
+          </div>
+          <div class="stat special-defense">
+            <p class="name">{{ pokemon.stats[4].stat.name }}</p>
+            <div class="bar_container">
+              <div class="bar">{{ pokemon.stats[4].base_stat }}</div>
+            </div>
+          </div>
+          <div class="stat speed">
+            <p class="name">{{ pokemon.stats[5].stat.name }}</p>
+            <div class="bar_container">
+              <div class="bar">{{ pokemon.stats[5].base_stat }}</div>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
     <script src="script.js" charset="utf-8"></script>
   </body>

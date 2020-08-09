@@ -10,9 +10,16 @@
   font-family: Pixel;
 }
 body {
-  background-color: #FFFFFF;
+  height: 100%;
 }
 
+.bg-image {
+  height: 100vh;
+  width: 100vw;
+  filter: blur(8px);
+  background-image: url("bg.png");
+  background-size: cover;
+}
 .grid-item .value {
   color: #ffbaba;
 }
@@ -34,23 +41,30 @@ body {
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 #pokedex .head {
-  height: 100px;
+  height: 60px;
   background-color: #2B2B2B;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
+#pokedex .body {
+  padding: 5%;
+}
 #pokedex .body .grid {
   display: grid;
-  grid-template-columns: 40% 40%;
+  grid-template-columns: 47.5% 47.5%;
+  column-gap: 5%;
+  row-gap: 5%;
 }
 #pokedex .body .grid-item {
   text-align: center;
+  background-color: #BF3434;
+  border-radius: 10px;
 }
 #pokemon_image_background {
   position: absolute;
   left: 320px;
-  top: 50px;
+  top: -50px;
   height: 156px;
   width: 156px;
   background-color: #111111;
@@ -62,6 +76,11 @@ body {
   height: 160px;
   width: 160px;
   image-rendering: pixelated;
+}
+#primary_type, #secondary_type {
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  color: black;
 }
 
 /* Pokémon list */
@@ -104,6 +123,49 @@ body {
   width: 80px;
   vertical-align: middle;
 }
+
+/* Pokémon stats */
+#stats {
+  font-size: 1.5em;
+  color: white;
+  background-color: #777777;
+  height: 400px;
+  width: 300px;
+  position: absolute;
+  top: calc(50vh - 130px);
+  left: calc(50vw + 200px);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+#stats .head {
+  height: 50px;
+  background-color: #2B2B2B;
+  border-top-right-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+#stats .stat {
+  padding-top: 7px;
+  margin-left: 5%;
+}
+#stats .bar_container {
+  width: 90%;
+  background-color: #666666;
+  border-radius: 10px;
+}
+#stats .bar {
+  width: 90%;
+  text-align: right;
+  border-radius: 10px;
+  color: black;
+  padding-right: 5px;
+}
+#stats .hp .bar { background-color: #ff5959; }
+#stats .attack .bar { background-color: #f5ac78; }
+#stats .defense .bar { background-color: #fae078; }
+#stats .special-attack .bar { background-color: #94efe0; }
+#stats .special-defense .bar { background-color: #94efe0; }
+#stats .speed .bar { background-color: #fa92b2; }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
