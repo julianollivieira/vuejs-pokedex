@@ -45,17 +45,18 @@
             </div>
             <div class="grid-item">
               <p class="name">Primary type</p>
-              <p id="primary_type" v-if="pokemon.primary_type" class="value">{{ pokemon.primary_type }}</p>
+              <p id="primary_type" v-if="pokemon.primary_type" class="value" v-bind:style="type_styles[0]">{{ pokemon.primary_type }}</p>
             </div>
             <div class="grid-item">
               <p class="name">Secondary type</p>
-              <p id="secondary_type" v-if="pokemon.secondary_type" class="value">{{ pokemon.secondary_type }}</p>
+              <p id="secondary_type" v-if="pokemon.secondary_type" class="value" v-bind:style="type_styles[1]">{{ pokemon.secondary_type }}</p>
               <p id="secondary_type" v-else class="value">none</p>
             </div>
             <div class="grid-item"><p class="name">Height</p><p class="value">{{ pokemon.height }} m</p></div>
             <div class="grid-item"><p class="name">Weight</p><p class="value">{{ pokemon.weight }} kg</p></div>
             <div class="grid-item"><p class="name">Habitat</p><p class="value">{{ pokemon.habitat }}</p></div>
             <div class="grid-item"><p class="name">Shape</p><p class="value">{{ pokemon.shape }}</p></div>
+            <div class="grid-item" id="entry"><p class="name">Entry</p><p class="value">{{ pokemon.entry }}</p></div>
           </div>
         </div>
       </div>
@@ -65,8 +66,16 @@
             <p>Pokémon stats</p>
           </div>
         </div>
-        <div class="body">
-          <div class="stat hp">
+        <div class="body" v-if="pokemon.stats">
+          <div class="stat" v-for="(item, index) in pokemon.stats">
+            <p class="name">{{ item.stat.name }}</p>
+            <div class="bar_container">
+              <div class="bar" v-bind:style="stats_styles[index]">{{ item.base_stat }}</div>
+            </div>
+          </div>
+
+
+          <!-- <div class="stat hp">
             <p class="name">{{ pokemon.stats[0].stat.name }}</p>
             <div class="bar_container">
               <div class="bar">{{ pokemon.stats[0].base_stat }}</div>
@@ -101,7 +110,7 @@
             <div class="bar_container">
               <div class="bar">{{ pokemon.stats[5].base_stat }}</div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

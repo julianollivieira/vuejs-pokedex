@@ -82,6 +82,10 @@ body {
   border-bottom-left-radius: 10px;
   color: black;
 }
+#entry {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
 
 /* Pokémon list */
 #pokemon_list {
@@ -160,12 +164,6 @@ body {
   color: black;
   padding-right: 5px;
 }
-#stats .hp .bar { background-color: #ff5959; }
-#stats .attack .bar { background-color: #f5ac78; }
-#stats .defense .bar { background-color: #fae078; }
-#stats .special-attack .bar { background-color: #94efe0; }
-#stats .special-defense .bar { background-color: #94efe0; }
-#stats .speed .bar { background-color: #fa92b2; }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {

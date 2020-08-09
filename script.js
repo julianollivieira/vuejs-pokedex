@@ -12,7 +12,6 @@ function setBackgoundToDominantColor(){
   const pokemon_image_background = document.getElementById('pokemon_image_background');
   let dominantColor = '0,0,0';
   pokemon_image.crossOrigin = "Anonymous";
-
   if (pokemon_image.complete) {
     dominantColor = colorThief.getColor(pokemon_image);
     pokemon_image_background.style.backgroundColor = `rgb(${dominantColor})`;
@@ -28,19 +27,21 @@ var app = new Vue({
   el: '#app',
   data: {
     all_pokemon: [],
-    pokemon: {
-      id_padded: 0,
-      ucfirst_name: '',
-      stats: [],
-    },
+    pokemon: {},
+    type_styles: [],
+    stats_styles: [
+      { width: '100%', backgroundColor: '#ff5959' },
+      { width: '100%', backgroundColor: '#f5ac78' },
+      { width: '100%', backgroundColor: '#fae078' },
+      { width: '100%', backgroundColor: '#94efe0' },
+      { width: '100%', backgroundColor: '#94efe0' },
+      { width: '100%', backgroundColor: '#fa92b2' },
+    ],
   },
   methods: {
     async getPokemon(id){
       id++;
-      let pkmn_resp = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
-      let spcs_resp = await axios.get(pkmn_resp.data.species.url);
-
-      let type_colors = {
+      const type_colors = {
         normal: '#adb09d', poison: '#9f5997', psychic: '#e860aa',
         grass: '#83c54a', ground: '#d9bb49', ice: '#87dbfd',
         fire: '#e54c3c',  rock: '#bbac67', dragon: '#7d6bf5',
@@ -48,34 +49,42 @@ var app = new Vue({
         fighting: '#ac5341', ghost: '#6d6dc5', steel: '#b0b0c8',
         flying: '#6b95f7', electric: '#f3d132', fairy: '#dea0eb',
       };
+      let pokemon_response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+      let species_response = await axios.get(pokemon_response.data.species.url);
+      let pkmn = pokemon_response.data;
+      let spcs = species_response.data;
 
-      ['id', 'name', 'height', 'weight', 'stats'].forEach((item, i) => {
-        this.pokemon[item] = pkmn_resp.data[item];
-      });
-
-      ['habitat', 'shape'].forEach((item, i) => {
-        this.pokemon[item] = spcs_resp.data[item].name;
-      });
-
-      this.pokemon.primary_type = {
-        name: pkmn_resp.data.types[0].type.name,
-        color: type_colors[pkmn_resp.data.types[0].type.name],
+      console.log(species_response);
+      this.pokemon = {
+        id: pkmn.id,
+        id_padded: pad(pkmn.id, 3),
+        name: pkmn.name,
+        ucfirst_name: ucfirst(pkmn.name),
+        height: pkmn.height,
+        weight: pkmn.weight,
+        habitat: spcs.habitat.name,
+        shape: spcs.shape.name,
+        sprite: pkmn.sprites.front_default,
+        stats: pkmn.stats,
+        primary_type: pkmn.types[0].type.name,
+        secondary_type: pkmn.types[1] !== undefined ? pkmn.types[1].type.name : null,
+        entry: '',
       }
 
-      this.pokemon.stats.forEach((item, i) => {
-        let len = (item.base_stat/2 < 7) ? 7 : item.base_stat/2;
-        document.querySelector(`.${item.stat.name} .bar`).style.width = `${len}%`;
+      this.type_styles = [
+        { backgroundColor: type_colors[pkmn.types[0].type.name] },
+        { backgroundColor: pkmn.types[1] !== undefined ? type_colors[pkmn.types[1].type.name] : null },
+      ]
+
+      pkmn.stats.forEach((item, i) => {
+        this.stats_styles[i].width = ((item.base_stat/2 < 7) ? 7 : item.base_stat/2) + "%";
       });
 
-
-      this.pokemon.primary_type = pkmn_resp.data.types[0].type.name;
-      this.pokemon.secondary_type = (pkmn_resp.data.types[1] !== undefined) ? pkmn_resp.data.types[1].type.name : null;
-      this.pokemon.sprite = pkmn_resp.data.sprites.front_default;
-      this.pokemon.id_padded = pad(this.pokemon.id, 3);
-      this.pokemon.ucfirst_name = ucfirst(this.pokemon.name);
-
-      document.getElementById("primary_type").style.backgroundColor = type_colors[pkmn_resp.data.types[0].type.name];
-      document.getElementById("secondary_type").style.backgroundColor = type_colors[pkmn_resp.data.types[1].type.name];
+      spcs.flavor_text_entries.forEach((item, i) => {
+        if(item.language.name == "en" && item.version.name == "red"){
+          this.pokemon.entry = item.flavor_text;
+        }
+      });
 
       setBackgoundToDominantColor();
     },
