@@ -1,6 +1,9 @@
 # Pokédex made with Vue.js
-Show information about a pokem
+Requests information about a Pokémon from an API and displays it.
+
 [View in browser](https://sharp-euler-148c78.netlify.app/)
+
+![Screenshot of the project](https://github.com/julianollivieira/vuejs-pokedex/blob/master/screenshot1.png?raw=true)
 
 # What i used for this project
 - [Vue.js (The Progressive JavaScript Framework)](https://vuejs.org/)
