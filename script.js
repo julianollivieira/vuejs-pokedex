@@ -54,7 +54,6 @@ var app = new Vue({
       let pkmn = pokemon_response.data;
       let spcs = species_response.data;
 
-      console.log(species_response);
       this.pokemon = {
         id: pkmn.id,
         id_padded: pad(pkmn.id, 3),
