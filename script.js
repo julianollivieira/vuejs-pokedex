@@ -62,12 +62,12 @@ var app = new Vue({
         ucfirst_name: ucfirst(pkmn.name),
         height: pkmn.height,
         weight: pkmn.weight,
-        habitat: spcs.habitat.name,
-        shape: spcs.shape.name,
+        habitat: ucfirst(spcs.habitat.name),
+        shape: ucfirst(spcs.shape.name),
         sprite: pkmn.sprites.front_default,
         stats: pkmn.stats,
-        primary_type: pkmn.types[0].type.name,
-        secondary_type: pkmn.types[1] !== undefined ? pkmn.types[1].type.name : null,
+        primary_type: ucfirst(pkmn.types[0].type.name),
+        secondary_type: pkmn.types[1] !== undefined ? ucfirst(pkmn.types[1].type.name) : null,
         entry: '',
       }
 
@@ -78,6 +78,7 @@ var app = new Vue({
 
       pkmn.stats.forEach((item, i) => {
         this.stats_styles[i].width = ((item.base_stat/2 < 7) ? 7 : item.base_stat/2) + "%";
+        this.pokemon.stats[i].stat.name = ucfirst(this.pokemon.stats[i].stat.name);
       });
 
       spcs.flavor_text_entries.forEach((item, i) => {

@@ -21,7 +21,7 @@
         <div class="body_content">
           <ul>
             <li v-for="(item, index) in all_pokemon" v-on:click="getPokemon(index)">
-              <img v-bind:src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + (index + 1) + '.png'">#{{ item.id }} {{ item.name }}
+              <img v-bind:alt="item.name" v-bind:src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + (index + 1) + '.png'">#{{ item.id }} {{ item.name }}
             </li>
           </ul>
         </div>
@@ -29,7 +29,7 @@
       <div id="pokedex">
         <div class="head">
           <div id="pokemon_image_background">
-            <img id="pokemon_image" v-bind:src="pokemon.sprite"></img>
+            <img id="pokemon_image" v-bind:src="pokemon.sprite" v-bind:alt="pokemon.ucfirst_name"></img>
           </div>
           <div class="head_content">
             <p>Pokédex</p>
@@ -50,7 +50,7 @@
             <div class="grid-item">
               <p class="name">Secondary type</p>
               <p id="secondary_type" v-if="pokemon.secondary_type" class="value" v-bind:style="type_styles[1]">{{ pokemon.secondary_type }}</p>
-              <p id="secondary_type" v-else class="value">none</p>
+              <p id="secondary_type" v-else class="value">None</p>
             </div>
             <div class="grid-item"><p class="name">Height</p><p class="value">{{ pokemon.height }} m</p></div>
             <div class="grid-item"><p class="name">Weight</p><p class="value">{{ pokemon.weight }} kg</p></div>
