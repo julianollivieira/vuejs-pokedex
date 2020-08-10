@@ -1,7 +1,7 @@
 # Pokédex made with Vue.js
 Requests information about a Pokémon from an API and displays it.
 
-[View in browser](vuejspokedex.netlify.app/)
+[View in browser](https://vuejspokedex.netlify.app/)
 
 ![Screenshot of the project](https://github.com/julianollivieira/vuejs-pokedex/blob/master/screenshot1.png?raw=true)
 
