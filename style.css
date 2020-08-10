@@ -27,6 +27,28 @@ body {
   padding: 17px;
 }
 
+#github {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  text-decoration: none;
+  color: white;
+  font-size: 2em;
+}
+#github p {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+#github svg {
+  width: 25px;
+  height: 25px;
+  padding: 10px;
+}
+
 /* Pokédex */
 #pokedex {
   font-size: 2em;
